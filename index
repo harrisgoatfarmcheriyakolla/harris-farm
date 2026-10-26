@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Goat Farm - Premium Breeds</title>
+    <style>
+       /* CSS Reset & Variables */
+       * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        :root {
+            --primary: #2c5e3b;
+            --primary-light: #e8f5e9;
+            --accent: #d4af37;
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 94, 59, 0.7), rgba(44, 94, 59, 0.8)), url('https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .btn {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #c29d28;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Goat Listing Grid */
+        .goat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        /* Card */
+        .goat-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .goat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image container */
+        .goat-img {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            background-color: #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        /* Images */
+        .goat-images {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Card content */
+        .goat-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .goat-name {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .goat-tag {
+            display: inline-block;
+            align-self: flex-start;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .goat-desc {
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        /* Other Services section */
+        #services {
+            padding-top: 0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .goat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 15px;
+            }
+
+            .goat-img {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .goat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .goat-img {
+                height: 350px;
+            }
+        }
+        /* Info Section (Location & Contact) */
+        .info-section {
+            background-color: var(--primary-light);
+            padding: 4rem 2rem;
+        }
+        .info-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        .info-box h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .info-box p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .farm-map{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCjzhMUwQJOQz71HScSO1kTyKRBzlnRyXNPVhrX9MNLZo396Emr96gtN0&s=10" alt="Goat Icon" width="80" height="80">
+                Harris Farm</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Our Breeds</a></li>
+                    <li><a href="#farm-map">Contact & Location</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <h1>Welcome to Harris Goat Farm</h1>
+        <p>We raise healthy, high-quality, and certified diverse goat breeds for dairy, meat, and breeding purposes.</p>
+        <a href="#services" class="btn">View Our Breeds</a>
+    </section>
+
+    <!-- GOAT LISTING SECTION -->
+    <main class="container" id="services">
+        <h2 class="section-title">Our Goat Breeds</h2>
+        <div class="goat-grid">
+            <!-- 1 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrHVn00OvFnaTE5oxLDEv2XXHsobLYWoo9T_RHZsc53g&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <span class="goat-tag">Dairy Breed</span>
+                    <h3 class="goat-name">Boer Goat</h3>
+                    <p class="goat-desc">Known for rapid growth and excellent carcass qualities, highly popular worldwide for meat production.</p>
+                </div>
+            </div>
+            <!-- 2 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrtRpcUnw2hwfA4lEWYmwPyyroivV3nNkvJZnPz916Jw&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <span class="goat-tag">Dairy Breed</span>
+                    <h3 class="goat-name">Saanen Goat</h3>
+                    <p class="goat-desc">The largest of the dairy goat breeds, producing exceptional milk volumes with a calm temperament.</p>
+                </div>
+            </div>
+            <!-- 3 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmHW_1YQrBXZORd_4kg3JKz_YO7tkl_E-lSPN2MYuOIg&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <span class="goat-tag">Dual Purpose</span>
+                    <h3 class="goat-name">Anglo-Nubian</h3>
+                    <p class="goat-desc">Recognizable by their long drooping ears. Excellent dual-purpose breed rich in milk butterfat content.</p>
+                </div>
+            </div>
+            <!-- 4 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgboODF8jUfEpaMqHm5uxFqAzc8mHiA0wfzeyloq7JDw&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <span class="goat-tag">Dairy Breed</span>
+                    <h3 class="goat-name">Alpine Goat</h3>
+                    <p class="goat-desc">Highly adaptable and heavy milk yielders. Known for curiosity, resilience, and unique colors.</p>
+                </div>
+            </div>
+            <!-- 5 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTe1k0--vbPRk9psAxb3_YxEO-cF6WDpWpMUUfqiLVLA&s" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <span class="goat-tag">Dairy Breed</span>
+                    <h3 class="goat-name">Toggenburg</h3>
+                    <p class="goat-desc">Oldest registered dairy breed. Features distinct swiss markings and steady, long-lasting milk production.</p>
+                </div>
+            </div>
+            <!-- 6 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST1FmIKwr1689TjgMCH81QXwsW8JtUQqpOfQMnI4jfIg&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <span class="goat-tag">Meat Breed</span>
+                    <h3 class="goat-name">Kalahari Red</h3>
+                    <p class="goat-desc">Distinctly red-skinned, highly sun-resistant, hardy meat goat suited for rugged, dry conditions.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main class="container" id="services">
+        <h2 class="section-title">Our Other Services</h2>
+        <div class="goat-grid">
+            <!-- 1 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD2b7bRjNwhu8GGZVq0bNaIaAEwqP7m9Ki6pj_alLONA&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <h3 class="goat-name">Mutton Meet</h3>
+                    <p class="goat-desc">🥩 **Quality Mutton, Just the Way You Want!**
+
+                        We provide fresh, quality mutton to meet your requirements. Whether you need mutton for home, special occasions, or bulk orders, we're here to serve you.
+                        
+                        📞 **Contact us today to place your order!** <a href="tel:+919778772821"> +91 9778772821</a></p>
+                </div>
+            </div>
+            <!-- 2 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz1rTsahkHHN14B4yzkG4FNV5x2USEKPkk8KQf5ZSkmw&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <h3 class="goat-name">Buffalo</h3>
+                    <p class="goat-desc">Top-quality dairy buffalos are available for sale! Outstanding genetics with a proven track record of high milk yield and excellent fat content. Healthy, well-tempered, and strictly managed under premium veterinary care. Perfect addition to scale up your commercial dairy farm or micro-dairy business.</p>
+                </div>
+            </div>
+            <!-- 3 -->
+            <div class="goat-card">
+                <div class="goat-img">
+                    <img class="goat-images" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd33jnoc9WdiEosBoUUErRXmp0VJzMs3jUweFt3E64dQ&s=10" alt="Goat Icon">
+                </div>
+                <div class="goat-info">
+                    <h3 class="goat-name">Hen</h3>
+                    <p class="goat-desc">🐓 **Premium Quality Naadan Hens Available for Sale!**
+
+                        Healthy, quality country chickens available for sale. Contact us today to place your order!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="farm-map" id="farm-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1973.4618205808956!2d77.1905455386748!3d8.409160551281927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05ad005befb58d%3A0xca3ff469e8a26c78!2sHarris%20Goat%20Farm!5e0!3m2!1sen!2sin!4v1792994318370!5m2!1sen!2sin" height="450" style="width: 100%;" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <!-- LOCATION & CONTACT SECTION -->
+    <section class="info-section" id="contact">
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>📍 Our Location</h3>
+                <p><strong>Farm Name:</strong> Harris Goat Farm</p>
+                <p><strong>Address:</strong> Opposite Niranjan Hollow Bricks, Cheriyakolla, Kerala - TN Border.</p>
+                <p><strong>Visiting Hours:</strong> Open 24 Hours</p>
+            </div>
+            <div class="info-box">
+                <h3>📞 Contact Details</h3>
+                <p><strong>Phone:</strong><a href="tel:+919778772821"> +91 9778772821</a></p>
+                <p><strong>Email:</strong><a href="mailto:harrisgoatfarmcheriyakolla@gmail.com"> harrisgoatfarmcheriyakolla@gmail.com</a></p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/+919778772821" target="_blank" rel="noopener noreferrer">
+                    Chat with us on WhatsApp
+                  </a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Harris Goat Farm. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
